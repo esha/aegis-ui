@@ -1,0 +1,12 @@
+# package managers
+bower_components
+node_modules
+
+# build artifacts
+bower.js
+aegis-ui.js
+aegis-ui.css
+*.map
+index.html
+jsx/*.js
+test/index.html

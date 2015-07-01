@@ -153,6 +153,14 @@ module.exports = function(grunt) {
         }
       }
     },
+    throttle: {
+      server: {
+        remote_port: 8000,
+        local_port: 8001,
+        upstream: 10*1024,
+        downstream: 100*1024
+      }
+    },
     watch: {
       js: {
         options: {
@@ -169,10 +177,10 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('test', ['build', 'qunit']);
+  grunt.registerTask('test', ['qunit']);
   grunt.registerTask('build', ['clean:artifacts', 'bake', 'jshint', 'jscs', 'bower_concat', 'react', 'concat_sourcemap', 'autoprefixer']);
   grunt.registerTask('minify', ['uglify', 'csswring']);
-  grunt.registerTask('default', ['build', 'minify', 'qunit:file']);
-  grunt.registerTask('dev', ['test', 'connect', 'watch'])
+  grunt.registerTask('default', ['build', 'test', 'minify', 'qunit:file']);
+  grunt.registerTask('dev', ['build', 'test', 'minify', 'connect', 'throttle', 'watch'])
 
 };
